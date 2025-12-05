@@ -182,7 +182,7 @@ constexpr bool is_decisive(Value value) { return is_win(value) || is_loss(value)
 // In the code, we make the assumption that these values
 // are such that non_pawn_material() can be used to uniquely
 // identify the material on the board.
-constexpr Value PawnValue   = 208;
+constexpr Value PawnValue   = 218;
 constexpr Value KnightValue = 781;
 constexpr Value BishopValue = 825;
 constexpr Value RookValue   = 1276;
@@ -362,10 +362,10 @@ constexpr Square& operator-=(Square& s, Direction d) { return s = s - d; }
 constexpr Color operator~(Color c) { return Color(c ^ BLACK); }
 
 // Swap A1 <-> A8
-constexpr Square flip_rank(Square s) { return Square(s ^ SQ_A8); }
+constexpr Square flip_rank(Square s) { return Square(int(s) ^ int(SQ_A8)); }
 
 // Swap A1 <-> H1
-constexpr Square flip_file(Square s) { return Square(s ^ SQ_H1); }
+constexpr Square flip_file(Square s) { return Square(int(s) ^ int(SQ_H1)); }
 
 // Swap color of piece B_KNIGHT <-> W_KNIGHT
 constexpr Piece operator~(Piece pc) { return Piece(pc ^ 8); }
@@ -391,11 +391,11 @@ constexpr Color color_of(Piece pc) {
 
 constexpr bool is_ok(Square s) { return s >= SQ_A1 && s <= SQ_H8; }
 
-constexpr File file_of(Square s) { return File(s & 7); }
+constexpr File file_of(Square s) { return File(int(s) & 7); }
 
 constexpr Rank rank_of(Square s) { return Rank(s >> 3); }
 
-constexpr Square relative_square(Color c, Square s) { return Square(s ^ (c * 56)); }
+constexpr Square relative_square(Color c, Square s) { return Square(int(s) ^ (int(c) * 56)); }
 
 constexpr Rank relative_rank(Color c, Rank r) { return Rank(r ^ (c * 7)); }
 
